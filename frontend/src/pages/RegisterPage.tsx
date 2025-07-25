@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/AuthForm.css";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterPage: React.FC = () => {
   const { register } = useAuth();
@@ -10,14 +11,15 @@ export const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
     try {
       await register({ email, password });
-      // Redirect or show success here
+      navigate("/login");
     } catch (err: any) {
       setError(err?.response?.data?.message || "Registration failed. Please try again.");
     } finally {
