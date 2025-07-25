@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/AuthForm.css";
 
-import { Google, LinkedIn } from "@mui/icons-material";
+import { Google, LinkedIn, Visibility, VisibilityOff } from "@mui/icons-material";
 
 const validationSchema = yup.object({
   email: yup.string().email("Email is invalid").required("Email is required"),
@@ -37,6 +37,13 @@ export default function LoginForm() {
       password: "",
     },
   });
+
+  // State to toggle show/hide password
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -72,17 +79,38 @@ export default function LoginForm() {
           )}
         </div>
 
-        <div className="input-group">
+        <div className="input-group" style={{ position: "relative" }}>
           <label htmlFor="password">Password</label>
           <input
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             {...register("password")}
             aria-invalid={!!errors.password}
             autoComplete="current-password"
             placeholder="Enter your password"
             className={errors.password ? "input-error" : ""}
           />
+          {/* Toggle show/hide icon button */}
+          <button
+            type="button"
+            onClick={toggleShowPassword}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "38px",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              color: "#999",
+            }}
+          >
+            {showPassword ? <VisibilityOff /> : <Visibility />}
+          </button>
+
           <div className="forgot">
             <a href="/forgot-password" rel="noopener noreferrer">
               Forgot Password?
