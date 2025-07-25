@@ -23,7 +23,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const data = await loginUser(payload);
     setUser(data.user);
     setAccessToken(data.accessToken);
-    // Optional: save tokens to localStorage/sessionStorage here
   };
 
   const register = async (payload: RegisterPayload) => {
