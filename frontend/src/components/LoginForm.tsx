@@ -5,11 +5,13 @@ import * as yup from "yup";
 import { useLoginMutation } from "../services/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
 import "../styles/AuthForm.css";
-
-import { Google, LinkedIn, Visibility, VisibilityOff } from "@mui/icons-material";
-
+import {
+  Google,
+  LinkedIn,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 const validationSchema = yup.object({
   email: yup.string().email("Email is invalid").required("Email is required"),
   password: yup
@@ -53,7 +55,9 @@ export default function LoginForm() {
     } catch (error: any) {
       const validationError =
         error?.data?.data?.errors?.[0]?.msg || error?.data?.message;
-      toast.error(validationError || "Login failed. Please check your credentials.");
+      toast.error(
+        validationError || "Login failed. Please check your credentials."
+      );
     }
   };
 
