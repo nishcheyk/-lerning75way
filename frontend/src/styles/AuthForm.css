@@ -37,6 +37,24 @@
 }
 
 .input-group {
+  position: relative; /* important for absolute positioning */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.input-group {
   font-size: 0.9rem;
   line-height: 1.3rem;
   width: 100%;
